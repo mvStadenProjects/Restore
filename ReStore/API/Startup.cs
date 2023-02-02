@@ -22,7 +22,6 @@ namespace API
         //Dependency Injection Container
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -32,9 +31,11 @@ namespace API
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //THis is middleware for the pipeline
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -47,7 +48,11 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            
+            app.UseCors(opt =>
+            {
+                opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+            });
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

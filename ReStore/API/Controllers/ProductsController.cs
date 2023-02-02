@@ -17,14 +17,12 @@ namespace API.Controllers
         public ProductsController(StoreContext context)
         {
             _context = context;
-
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
             return await _context.Products.ToListAsync();
-
         }
 
         [HttpGet("{id}")]
