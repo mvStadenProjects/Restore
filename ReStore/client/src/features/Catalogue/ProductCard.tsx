@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
+import { Link } from "react-router-dom";
 import { Product } from "../../app/models/product";
 
 interface Props {
@@ -47,7 +48,9 @@ const ProductCard = ({ product }: Props) => {
       </CardContent>
       <CardActions>
         <Button size="small">Add to cart</Button>
-        <Button size="small">View</Button>
+        <Button size="small" component={Link} to={`/catalogue/${product.id}`}>
+          View
+        </Button>
       </CardActions>
     </Card>
     // <ListItem key={product.id}>
